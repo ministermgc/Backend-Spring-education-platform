@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  backend:
+    image: codenestback:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:${SERVER_PORT}"
+    depends_on:
+      - postgres
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/codenest
+    volumes:
+      - ./images:/app/images
+  postgres:
+    image: postgres:16.2
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:${DB_PORT}"
+    volumes:
+      - volumedb:/var/lib/postgresql/data
+
+volumes:
+  volumedb:
