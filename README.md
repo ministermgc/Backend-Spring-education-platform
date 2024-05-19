@@ -1,16 +1,10 @@
 # CodeNest – Education platform
 
----
-
 The application is an educational platform for web development.
-
----
 
 ## Project Description
 
 The project is a backend for an educational platform designed for web development learning. The platform provides an intuitive and interactive way to learn diverse web development concepts.
-
----
 
 ## Technologies and Tools
 
@@ -25,8 +19,6 @@ This educational platform is implemented with:
 - PostgreSQL: The data storage solution provides the scalability and performance needed to handle the data of users, courses, and learning results.
 - Docker: Used for defining and running the application in a Docker Container.
 
----
-
 ## Functionalities
 
 - User Registration and Authentication: This system has the functionality to allow new users to create a new account, using their desired login credentials. Existing users can easily access their personal account by entering their username and password.
@@ -35,13 +27,11 @@ This educational platform is implemented with:
 - Dashboard and Lesson Access: Users are given a comprehensive overview of lessons available through a lesson feed. This feed provides a list of lessons in a paginated format for easy navigation. The feature also allows users to access all lessons available on the platform, providing a detailed list in a navigatable format.
 - Task Management: Administrators can set up tasks related to each lesson. They have control over the task information, where they can add new tasks, update task details or delete tasks as needed. For regular users, they have the opportunity to not only retrieve tasks based on identifiers but also to make submissions of task solutions for grading. Post submissions, users will receive the correct solutions for their tasks.
 
----
-
 ## Beginning of work
 
 To run the application you will need Java, Maven and Docker Compose.
 
-### Installation
+### Build and run
 
 1. Clone the repository:
 ```shell
@@ -51,12 +41,11 @@ git clone https://github.com/ministermgc/Backend-Spring-education-platform.git
 ```shell
 cd Backend-Spring-education-platform
 ```
-3. Launch the application:
+3. The ``.env`` environment variables must be specified before running the application. The required variables are in the ``.env-example`` file
+4. Launch the application:
 ```shell
 make launch
 ```
-
----
 
 ## API endpoints
 
