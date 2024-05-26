@@ -1,46 +1,33 @@
 package com.krisanov.codenest.lesson.service;
 
-import com.krisanov.codenest.lesson.dto.LessonResponseDto;
-import com.krisanov.codenest.lesson.dto.PageLessonResponseDto;
+import com.krisanov.codenest.lesson.dto.LessonDto;
+import com.krisanov.codenest.lesson.dto.PageLessonDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-/**
- * Service interface that outlines the core operations related to Lessons.
- *
- * <p>
- * This interface defines methods for fetching, Paginated feed of lesson details,
- * retrieving all lessons in a paginated format and fetching a specific lesson
- * by its identifier.
- * </p>
- *
- * @author Maxim Krisanov
- * @see com.krisanov.codenest.lesson.dto.LessonResponseDto
- * @see com.krisanov.codenest.lesson.dto.PageLessonResponseDto
- */
 public interface LessonService {
 
     /**
-     * Retrieves a paginated feed of {@link com.krisanov.codenest.lesson.dto.PageLessonResponseDto} objects.
+     * Retrieves a page of PageLessonDto objects for the feed, wrapped as a Page object.
      *
-     * @param pageable the pagination information
-     * @return a Page containing PageLessonResponseDto objects
+     * @param pageable A Pageable object specifying information about the desired page and page size.
+     * @return A Page object containing PageLessonDto objects for the requested page of the feed.
      */
-    Page<PageLessonResponseDto> findFeed(Pageable pageable);
+    Page<PageLessonDto> findFeed(Pageable pageable);
 
     /**
-     * Retrieves a paginated list of all {@link com.krisanov.codenest.lesson.dto.PageLessonResponseDto} objects.
+     * Retrieves all PageLessonDto objects, wrapped as a Page object.
      *
-     * @param pageable the pagination information
-     * @return a Page containing PageLessonResponseDto objects
+     * @param pageable A Pageable object specifying information about the desired page and page size.
+     * @return A Page object containing all PageLessonDto objects for the requested page.
      */
-    Page<PageLessonResponseDto> findAll(Pageable pageable);
+    Page<PageLessonDto> findAll(Pageable pageable);
 
     /**
-     * Retrieves a specific {@link com.krisanov.codenest.lesson.dto.LessonResponseDto} identified by the provided lessonId.
+     * Finds a lesson by its id, represented as a LessonDto object.
      *
-     * @param lessonId the id of the lesson to be retrieved
-     * @return the corresponding LessonResponseDto
+     * @param lessonId The identifier of the lesson to be retrieved.
+     * @return The lesson details represented in a LessonDto object.
      */
-    LessonResponseDto findById(Long lessonId);
+    LessonDto findById(Long lessonId);
 }
