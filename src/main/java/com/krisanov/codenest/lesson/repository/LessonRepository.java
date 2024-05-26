@@ -10,13 +10,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
 
-  /**
-   * This method retrieves a feed of lessons ordered by their id in descendant order,
-   * using a specified pagination.
-   *
-   * @param pageable - Pagination information.
-   * @return A paged list of Lessons, ordered by id in descendant order.
-   */
-  @Query("SELECT l FROM Lesson l ORDER BY l.id DESC")
-  Page<Lesson> findFeed(Pageable pageable);
+    /**
+     * Retrieves a page of lessons, ordered by their id's in descending order.
+     *
+     * @param pageable The pageable object that defines the size and number of pages to retrieve.
+     * @return A page of lessons in descending order by id.
+     */
+    @Query("SELECT l FROM Lesson l ORDER BY l.id DESC")
+    Page<Lesson> findFeed(Pageable pageable);
 }
