@@ -3,11 +3,11 @@ package com.krisanov.codenest.lesson.dto;
 import lombok.Builder;
 
 @Builder
-public record LessonResponseDto(
+public record PageLessonDto(
         Long lessonId,
         String title,
-        String textContent,
-        CodeFragmentResponseDto codeFragment
+        String description,
+        String imageUrl
 ) {
 
 }
