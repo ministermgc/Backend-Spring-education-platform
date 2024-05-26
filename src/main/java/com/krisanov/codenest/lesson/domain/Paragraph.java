@@ -17,8 +17,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * The CodeFragment class represents a section of code within a lesson.
- * A code fragment is a part of the lesson content and is linked back to its parent lesson.
+ * This class represents a single paragraph within a lesson.
+ * A paragraph is considered a part of the lesson content,
+ * and links back to its parent lesson.
  */
 @Entity
 @Getter
@@ -26,37 +27,36 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "lesson_code_fragments")
-public class CodeFragment {
+@Table(name = "lesson_paragraphs")
+public class Paragraph {
 
     /**
-     * The unique identifier for a code fragment. Automatically generated upon creation.
+     * The unique identifier for a paragraph. Automatically generated upon creation.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * The text of the code fragment content.
+     * The actual content text of the paragraph.
      * Must not be null or blank.
      */
-
-    @NotNull(message = "Code must not be null.")
-    @NotBlank(message = "Code must not be blank.")
+    @NotNull(message = "Paragraph's text must not be null.")
+    @NotBlank(message = "Paragraph's text must not be blank.")
     @Column(columnDefinition = "TEXT")
-    private String code;
+    private String text;
 
     /**
-     * The order or position of the code fragment in the lesson. Must not be null.
+     * The order or position of the paragraph in the lesson. Must not be null.
      */
-    @NotNull(message = "Code fragment's position must not be null.")
+    @NotNull(message = "Paragraph's position must not be null.")
     private Integer position;
 
     /**
-     * The lesson this code fragment is a part of. Must not be null.
+     * The lesson this paragraph is a part of. Must not be null.
      * This is linked back to the parent lesson.
      */
-    @NotNull(message = "Code fragment's lesson must not be null.")
+    @NotNull(message = "Paragraph's lesson must not be null.")
     @ManyToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private Lesson lesson;
