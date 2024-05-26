@@ -1,5 +1,6 @@
 package com.krisanov.codenest.lesson.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -60,14 +61,14 @@ public class Lesson {
      * The paragraphs that constitute the lesson. This cannot be null and is linked to the Paragraph class.
      */
     @NotNull(message = "Lesson's paragraphs must not be null.")
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
     private List<Paragraph> paragraphs = new ArrayList<>();
 
     /**
      * The fragments of code included in the lesson. This cannot be null and is linked to the CodeFragment class.
      */
     @NotNull(message = "Lesson's code fragments must not be null.")
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
     private List<CodeFragment> codeFragments = new ArrayList<>();
 
     /**
