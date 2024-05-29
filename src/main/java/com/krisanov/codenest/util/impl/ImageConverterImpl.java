@@ -1,7 +1,7 @@
 package com.krisanov.codenest.util.impl;
 
 import com.krisanov.codenest.common.exception.ImageNotFoundException;
-import com.krisanov.codenest.util.ImageConverter;
+import com.krisanov.codenest.util.ImageToBase64StringConverter;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -17,11 +17,10 @@ import java.util.Base64;
  * This class provides a method for converting an image file from a local disk to a Base64 String representation.
  * </p>
  *
- * @author Maxim Krisanov
- * @see com.krisanov.codenest.util.ImageConverter
+ * @see com.krisanov.codenest.util.ImageToBase64StringConverter
  */
 @Component
-public class ImageConverterImpl implements ImageConverter {
+public class ImageConverterImpl implements ImageToBase64StringConverter {
 
     /**
      * Convert the image file located at the specified path into a Base64 String.

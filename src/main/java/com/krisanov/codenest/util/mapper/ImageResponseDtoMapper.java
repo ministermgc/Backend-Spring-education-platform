@@ -1,7 +1,7 @@
 package com.krisanov.codenest.util.mapper;
 
 import com.krisanov.codenest.common.exception.ImageNotFoundException;
-import com.krisanov.codenest.util.ImageConverter;
+import com.krisanov.codenest.util.ImageToBase64StringConverter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
  * a given image URL to its corresponding Base64 representation.
  * </p>
  *
- * @author Maxim Krisanov
  * @see com.krisanov.codenest.util.ImageConverter
  */
-@Mapper(componentModel = "spring", uses = ImageConverter.class)
+@Mapper(componentModel = "spring", uses = ImageToBase64StringConverter.class)
 public abstract class ImageResponseDtoMapper {
 
     /**
-     * ImageConverter instance used for converting images.
+     * ImageToBase64StringConverter instance used for converting images.
      */
-    private ImageConverter imageConverter;
+    private ImageToBase64StringConverter imageConverter;
 
     /**
-     * Sets the ImageConverter implementation to be used in the image conversion.
+     * Sets the ImageToBase64StringConverter implementation to be used in the image conversion.
      *
      * @param imageConverter the ImageConverter to set
      */
     @Autowired
-    public void setImageConverter(ImageConverter imageConverter) {
+    public void setImageConverter(ImageToBase64StringConverter imageConverter) {
         this.imageConverter = imageConverter;
     }
 
@@ -39,7 +38,7 @@ public abstract class ImageResponseDtoMapper {
      * Converts an image URL into Base64 representation.
      *
      * <p>
-     * This method uses the configured ImageConverter implementation to perform the conversion.
+     * This method uses the configured ImageToBase64StringConverter implementation to perform the conversion.
      * In case the image conversion fails due to image not found, it returns an empty string.
      * </p>
      *

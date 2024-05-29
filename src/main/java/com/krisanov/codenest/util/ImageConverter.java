@@ -8,15 +8,15 @@ package com.krisanov.codenest.util;
  * to another format or representation.
  * </p>
  *
- * @author Maxim Krisanov
+ * @param <T> the type of object that the converted image will be represented as.
  */
-public interface ImageConverter {
+public interface ImageConverter<T> {
 
     /**
-     * Convert the image located at the provided URL.
+     * Converts the image located at the provided URL.
      *
-     * @param imageUrl a String representing the URL of the image to convert
-     * @return a String representing the converted image
+     * @param imageUrl a String representing the URL of the image to be converted.
+     * @return an instance of type T that represents the converted image.
      */
-    String convertImage(String imageUrl);
+    T convertImage(String imageUrl);
 }
