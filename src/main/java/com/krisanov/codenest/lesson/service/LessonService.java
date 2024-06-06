@@ -43,14 +43,6 @@ public interface LessonService {
     LessonResponse findById(Long lessonId);
 
     /**
-     * Gets a paginated feed of Lessons.
-     *
-     * @param pageable the Pageable object containing pagination info
-     * @return a Page containing Lessons as DTOs
-     */
-    Page<LessonPageResponse> getLessonFeed(Pageable pageable);
-
-    /**
      * Gets a paginated list of Lessons.
      *
      * @param pageable the Pageable object containing pagination info
