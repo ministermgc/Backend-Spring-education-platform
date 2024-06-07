@@ -16,6 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the TaskService interface for managing tasks.
+ *
+ * @see TaskService
+ */
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
@@ -30,6 +35,9 @@ public class TaskServiceImpl implements TaskService {
 
     private final PageTaskResponseMapper pageTaskResponseMapper;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TaskResponse findById(Long taskId) {
         return taskRepository
@@ -39,6 +47,9 @@ public class TaskServiceImpl implements TaskService {
                         "Task with id %d is not found".formatted(taskId)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TaskResponse save(TaskRequest taskRequest) {
         Task task = taskRequestMapper.toEntity(taskRequest);
@@ -46,6 +57,9 @@ public class TaskServiceImpl implements TaskService {
         return taskResponseMapper.toDto(taskRepository.save(task));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TaskResponse updateById(Long taskId, TaskRequest taskRequest) {
         return taskRepository
@@ -59,11 +73,17 @@ public class TaskServiceImpl implements TaskService {
                         "Task with id %d is not found".formatted(taskId)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteById(Long taskId) {
         taskRepository.deleteById(taskId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Page<PageTaskResponse> findAllByLessonId(Long lessonId, Pageable pageable) {
         return taskRepository
@@ -71,6 +91,13 @@ public class TaskServiceImpl implements TaskService {
                 .map(pageTaskResponseMapper::toDto);
     }
 
+    /**
+     * Sets the lesson to the task.
+     *
+     * @param lessonId the ID of the lesson
+     * @param task the task to set the lesson to
+     * @throws NotFoundException if the lesson with the given ID is not found
+     */
     private void setLessonToTask(Long lessonId, Task task) {
         task.setLesson(lessonRepository
                 .findById(lessonId)
