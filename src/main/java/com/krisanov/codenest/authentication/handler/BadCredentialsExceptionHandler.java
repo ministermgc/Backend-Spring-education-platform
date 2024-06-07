@@ -1,9 +1,9 @@
-package com.krisanov.codenest.common.handler;
+package com.krisanov.codenest.authentication.handler;
 
 import com.krisanov.codenest.common.dto.ResponseErrorDto;
-import com.krisanov.codenest.common.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,18 +12,18 @@ import java.util.List;
 
 @RestControllerAdvice
 @Slf4j
-public class NotFoundExceptionHandler {
+public class BadCredentialsExceptionHandler {
 
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseErrorDto handleMethodArgumentNotValidException(
-            NotFoundException ex) {
+            BadCredentialsException ex) {
         log.error("[EXCEPTION] message: {}", ex.getMessage());
 
         String errorMessages = ex.getMessage();
 
         return ResponseErrorDto.builder()
-                .status(HttpStatus.NOT_FOUND)
+                .status(HttpStatus.BAD_REQUEST)
                 .errorMessage(List.of(errorMessages))
                 .build();
     }
