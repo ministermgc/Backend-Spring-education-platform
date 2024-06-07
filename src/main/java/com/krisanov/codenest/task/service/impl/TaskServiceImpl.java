@@ -4,9 +4,12 @@ import com.krisanov.codenest.common.exception.NotFoundException;
 import com.krisanov.codenest.domain.Task;
 import com.krisanov.codenest.repository.LessonRepository;
 import com.krisanov.codenest.repository.TaskRepository;
+import com.krisanov.codenest.task.domain.SolutionStatus;
 import com.krisanov.codenest.task.dto.PageTaskResponse;
 import com.krisanov.codenest.task.dto.TaskRequest;
 import com.krisanov.codenest.task.dto.TaskResponse;
+import com.krisanov.codenest.task.dto.TaskSolutionRequest;
+import com.krisanov.codenest.task.dto.TaskSolutionResponse;
 import com.krisanov.codenest.task.mapper.PageTaskResponseMapper;
 import com.krisanov.codenest.task.mapper.TaskRequestMapper;
 import com.krisanov.codenest.task.mapper.TaskResponseMapper;
@@ -92,10 +95,30 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public TaskSolutionResponse checkUserTaskAnswer(Long taskId, TaskSolutionRequest taskSolutionRequest) {
+        Task task = taskRepository
+                .findById(taskId)
+                .orElseThrow(() -> new NotFoundException(
+                        "Task with id %d is not found".formatted(taskId)));
+
+        SolutionStatus solutionStatus = SolutionStatus.FAILURE;
+        if (task.getAnswer().equals(taskSolutionRequest.userTaskAnswer())) {
+            solutionStatus = SolutionStatus.SUCCESS;
+        }
+
+        return TaskSolutionResponse.builder()
+                .solutionStatus(solutionStatus)
+                .build();
+    }
+
+    /**
      * Sets the lesson to the task.
      *
      * @param lessonId the ID of the lesson
-     * @param task the task to set the lesson to
+     * @param task     the task to set the lesson to
      * @throws NotFoundException if the lesson with the given ID is not found
      */
     private void setLessonToTask(Long lessonId, Task task) {

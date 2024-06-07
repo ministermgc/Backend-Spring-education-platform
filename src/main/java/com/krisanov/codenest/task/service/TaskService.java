@@ -3,6 +3,8 @@ package com.krisanov.codenest.task.service;
 import com.krisanov.codenest.task.dto.PageTaskResponse;
 import com.krisanov.codenest.task.dto.TaskRequest;
 import com.krisanov.codenest.task.dto.TaskResponse;
+import com.krisanov.codenest.task.dto.TaskSolutionRequest;
+import com.krisanov.codenest.task.dto.TaskSolutionResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -48,4 +50,13 @@ public interface TaskService {
      * @return a page of task responses containing the tasks for the specified lesson
      */
     Page<PageTaskResponse> findAllByLessonId(Long lessonId, Pageable pageable);
+
+    /**
+     * Checks the user's answer for a given task.
+     *
+     * @param taskId the ID of the task
+     * @param taskSolutionRequest the request object containing the user's answer
+     * @return the task solution response containing the result of the check
+     */
+    TaskSolutionResponse checkUserTaskAnswer(Long taskId, TaskSolutionRequest taskSolutionRequest);
 }

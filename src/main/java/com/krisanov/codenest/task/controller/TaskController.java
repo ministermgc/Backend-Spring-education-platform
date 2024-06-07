@@ -3,6 +3,8 @@ package com.krisanov.codenest.task.controller;
 import com.krisanov.codenest.common.dto.ResponseErrorDto;
 import com.krisanov.codenest.task.dto.TaskRequest;
 import com.krisanov.codenest.task.dto.TaskResponse;
+import com.krisanov.codenest.task.dto.TaskSolutionRequest;
+import com.krisanov.codenest.task.dto.TaskSolutionResponse;
 import com.krisanov.codenest.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -174,5 +176,37 @@ public class TaskController {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
+    }
+
+    @Operation(
+            description = "Check task solutions.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(
+                                    schema = @Schema(implementation = TaskSolutionResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "The user must be logged in to perform this action.",
+                            content = @Content(
+                                    schema = @Schema(implementation = ResponseErrorDto.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "In case when the task is not found.",
+                            content = @Content(
+                                    schema = @Schema(implementation = ResponseErrorDto.class)
+                            )
+                    )
+            },
+            security = @SecurityRequirement(name = "Bearer JWT")
+    )
+    @PostMapping("/{taskId:\\d+}/answer")
+    public TaskSolutionResponse checkUserTaskAnswer(@PathVariable Long taskId,
+            @RequestBody TaskSolutionRequest taskSolutionRequest) {
+        return taskService.checkUserTaskAnswer(taskId, taskSolutionRequest);
     }
 }
