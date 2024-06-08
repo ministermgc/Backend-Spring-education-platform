@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   backend:
     image: codenestback:latest
@@ -9,12 +7,20 @@ services:
     ports:
       - "8080:${SERVER_PORT}"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       - SERVER_PORT=${SERVER_PORT}
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/codenest
+      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
+    restart: always
     volumes:
       - ./images:/app/images
+    networks:
+      - codenest
+      - database
   postgres:
     image: postgres:16
     environment:
@@ -23,8 +29,21 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:${DB_PORT}"
+    restart: always
     volumes:
       - volumedb:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_NAME}" ]
+      interval: 8s
+      timeout: 4s
+      retries: 4
+    networks:
+      - database
 
 volumes:
   volumedb:
+
+networks:
+  codenest:
+    external: true
+  database:
