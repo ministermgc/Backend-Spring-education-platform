@@ -67,7 +67,7 @@ public class Lesson {
     /**
      * The content of the lesson.
      */
-    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LessonContent> content;
 
     /**

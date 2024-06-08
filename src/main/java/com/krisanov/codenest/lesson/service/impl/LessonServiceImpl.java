@@ -77,9 +77,9 @@ public class LessonServiceImpl implements LessonService {
         return lessonRepository
                 .findById(lessonId)
                 .map(lesson -> {
-                    Lesson savedLesson = lessonRepository
-                            .save(lessonRequestMapper
-                                    .update(lessonRequest, lesson));
+                    lessonRequestMapper.update(lessonRequest, lesson);
+                    lesson.getContent().forEach(content -> content.setLesson(lesson));
+                    Lesson savedLesson = lessonRepository.save(lesson);
                     return lessonResponseMapper.toDto(savedLesson);
                 })
                 .orElseThrow(() -> new NotFoundException(
