@@ -17,6 +17,7 @@ services:
       - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
       - CORS_PROD=${CORS_PROD}
       - CORS_DEV=${CORS_DEV}
+      - SECRET_KEY=${SECRET_KEY}
     restart: always
     volumes:
       - ./images:/app/images
