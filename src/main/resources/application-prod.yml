@@ -1,0 +1,3 @@
+allowed:
+  cors:
+    - ${CORS_PROD}

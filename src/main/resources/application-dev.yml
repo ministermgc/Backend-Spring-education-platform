@@ -1,3 +1,7 @@
 logging:
   level:
     org.springframework.security: TRACE
+
+allowed:
+  cors:
+    - ${CORS_DEV}

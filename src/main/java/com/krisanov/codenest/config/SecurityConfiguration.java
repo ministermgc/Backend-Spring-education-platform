@@ -33,6 +33,8 @@ public class SecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
 
+    private final AllowedCorsProperties allowedCorsProperties;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -42,8 +44,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfiguration() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(
-                Arrays.asList("http://localhost", "http://localhost:5173"));
+        corsConfiguration.setAllowedOrigins(allowedCorsProperties.getCors());
         corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
