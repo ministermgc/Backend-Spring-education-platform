@@ -15,7 +15,7 @@ public interface LessonContentRequestMapper {
      * @param lessonContentRequest the DTO object to be mapped to a LessonContent entity
      * @return a LessonContent entity
      */
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "id", source = "contentId")
     @Mapping(target = "lesson", ignore = true)
     LessonContent toEntity(LessonContentRequest lessonContentRequest);
 }
