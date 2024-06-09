@@ -1,5 +1,6 @@
 package com.krisanov.codenest.useraccount.controller;
 
+import com.krisanov.codenest.common.dto.ResponseErrorDto;
 import com.krisanov.codenest.useraccount.dto.UpdateUserAccountRequestDto;
 import com.krisanov.codenest.useraccount.dto.UserAccountResponseDto;
 import com.krisanov.codenest.useraccount.service.UserAccountService;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,7 +38,7 @@ public class UserAccountController {
                             responseCode = "401",
                             description = "The user must be authenticated to perform this action.",
                             content = @Content(
-                                    schema = @Schema(implementation = UserAccountResponseDto.class)
+                                    schema = @Schema(implementation = ResponseErrorDto.class)
                             )
                     )
             }
@@ -59,21 +61,21 @@ public class UserAccountController {
                             responseCode = "400",
                             description = "In case the user data is not valid.",
                             content = @Content(
-                                    schema = @Schema(implementation = UserAccountResponseDto.class)
+                                    schema = @Schema(implementation = ResponseErrorDto.class)
                             )
                     ),
                     @ApiResponse(
                             responseCode = "401",
                             description = "The user must be authenticated to perform this action.",
                             content = @Content(
-                                    schema = @Schema(implementation = UserAccountResponseDto.class)
+                                    schema = @Schema(implementation = ResponseErrorDto.class)
                             )
                     )
             }
     )
     @PutMapping
     public UserAccountResponseDto updateUserAccount(
-            @RequestBody UpdateUserAccountRequestDto updateUserAccountRequestDto
+            @RequestBody @Valid UpdateUserAccountRequestDto updateUserAccountRequestDto
     ) {
         return userAccountService.updateUserAccount(updateUserAccountRequestDto);
     }

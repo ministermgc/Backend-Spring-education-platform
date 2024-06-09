@@ -5,18 +5,17 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:${SERVER_PORT}"
+      - "127.0.0.1:${SERVER_PORT}:5832"
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       - SERVER_PORT=${SERVER_PORT}
-      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_URL=${DB_URL}${DB_NAME}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE}
-      - CORS_PROD=${CORS_PROD}
-      - CORS_DEV=${CORS_DEV}
+      - CORS=${CORS}
       - SECRET_KEY=${SECRET_KEY}
     restart: always
     volumes:
@@ -31,7 +30,7 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:${DB_PORT}"
+      - "127.0.0.1:${DB_PORT}:5432"
     restart: always
     volumes:
       - volumedb:/var/lib/postgresql/data

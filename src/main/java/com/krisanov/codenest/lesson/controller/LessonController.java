@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -89,7 +90,7 @@ public class LessonController {
     )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public LessonResponse createLesson(@RequestBody LessonRequest lessonRequest) {
+    public LessonResponse createLesson(@RequestBody @Valid LessonRequest lessonRequest) {
         return lessonService.save(lessonRequest);
     }
 
@@ -122,7 +123,7 @@ public class LessonController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{lessonId:\\d+}")
     public LessonResponse updateLessonById(@PathVariable Long lessonId,
-                                           @RequestBody LessonRequest lessonRequest) {
+                                           @RequestBody @Valid LessonRequest lessonRequest) {
         return lessonService.updateById(lessonId, lessonRequest);
     }
 
