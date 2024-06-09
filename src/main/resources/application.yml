@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT}
+  port: 5832
 
 spring:
   datasource:
@@ -14,3 +14,7 @@ spring:
 security:
   jwt:
     secret-key: ${SECRET_KEY}
+
+allowed:
+  cors:
+    - ${CORS}

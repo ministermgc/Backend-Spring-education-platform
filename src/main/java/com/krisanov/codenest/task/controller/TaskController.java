@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,7 +93,7 @@ public class TaskController {
     )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public TaskResponse createTask(@RequestBody TaskRequest taskRequest) {
+    public TaskResponse createTask(@RequestBody @Valid TaskRequest taskRequest) {
         return taskService.save(taskRequest);
     }
 
@@ -132,7 +133,7 @@ public class TaskController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{taskId:\\d+}")
     public TaskResponse updateTaskById(@PathVariable Long taskId,
-                                       @RequestBody TaskRequest taskRequest) {
+                                       @RequestBody @Valid TaskRequest taskRequest) {
         return taskService.updateById(taskId, taskRequest);
     }
 
