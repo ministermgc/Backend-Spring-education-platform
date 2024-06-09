@@ -59,4 +59,13 @@ public interface TaskService {
      * @return the task solution response containing the result of the check
      */
     TaskSolutionResponse checkUserTaskAnswer(Long taskId, TaskSolutionRequest taskSolutionRequest);
+
+
+    /**
+     * Finds all tasks with pagination.
+     *
+     * @param pageable the pagination information
+     * @return a page of task responses containing the tasks for the specified lesson
+     */
+    Page<PageTaskResponse> findAll(Pageable pageable);
 }

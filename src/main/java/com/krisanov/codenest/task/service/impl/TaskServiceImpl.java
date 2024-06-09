@@ -115,6 +115,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
+     * @{inheritDoc}
+     */
+    @Override
+    public Page<PageTaskResponse> findAll(Pageable pageable) {
+        return taskRepository
+                .findAll(pageable)
+                .map(pageTaskResponseMapper::toDto);
+    }
+
+    /**
      * Sets the lesson to the task.
      *
      * @param lessonId the ID of the lesson
