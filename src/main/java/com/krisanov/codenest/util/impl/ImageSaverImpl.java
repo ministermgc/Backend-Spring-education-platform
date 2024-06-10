@@ -56,7 +56,7 @@ public class ImageSaverImpl implements ImageSaverReturnUrl {
             return Files.write(path, data,
                     StandardOpenOption.CREATE, StandardOpenOption.WRITE).toString();
         } catch (IOException e) {
-            throw new ImageNotSavedException(e.getMessage());
+            throw new ImageNotSavedException("[EXCEPTION] Image not saved", e);
         }
     }
 }
